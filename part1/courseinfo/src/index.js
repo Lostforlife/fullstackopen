@@ -2,50 +2,66 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 const App = () => {
-  const course = 'Half Stack application development'
-  const part1 = 'Fundamentals of React'
-  const exercises1 = 10
-  const part2 = 'Using props to pass data'
-  const exercises2 = 7
-  const part3 = 'State of a component'
-  const exercises3 = 14
+  const course = {
+    name: 'Half Stack application development',
+    parts: [
+      {
+        name: 'Fundamentals of React',
+        excercises: 10
+      },
+      {
+        name: 'Using props to pass data',
+        excercises: 7
+      },
+      {
+        name: 'State of a component',
+        excercises: 14
+      }
+    ]
+  }
   return (
     <div>
-      <Header name={course} />
-      <Content part={part1} exercises={exercises1}/>
-      <Content part={part2} exercises={exercises2}/>
-      <Content part={part3} exercises={exercises3}/>
-      <Total total={exercises1 + exercises2 + exercises3}/>      
+      <Header course={course.name} />
+      <Content course={course.parts} />
+      <Total course={course.parts} />   
     </div>
   )
 }
+
 const Header = (props) => {
   console.log(props)
   return (
-      <h1>{props.name}</h1>
+      <h1>
+        {props.course}
+      </h1>
   )
 }
+
 const Content = (props) => {
-  console.log(props)
+  console.log(props.course[1].name)
   return (
+    <div>
       <p>
-        {props.part} {props.exercises}
-      </p>
+        {props.course[0].name} {props.course[0].excercises}
+        </p>
+        <p>
+        {props.course[1].name} {props.course[1].excercises}
+        </p>
+        <p>
+        {props.course[2].name} {props.course[2].excercises}
+        </p>
+    </div>
   )
 }
+
 const Total = (props) => {
   console.log(props)
   return (
       <p>
-        Number of exercises {props.total}
+        Number of exercises {props.course[0].excercises + props.course[1].excercises + props.course[2].excercises}
       </p>
   )
 }
 
-const sum = (p1, p2) => {
-  return p1 + p2
-}
-const result = sum(15, 5)
-console.log(result)
 
 ReactDOM.render(<App />, document.getElementById('root'))
